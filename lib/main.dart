@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rick_and_morty/injection.dart';
-import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:flutter_rick_and_morty/character/data/service/character_service.dart';
 
 void main() async {
@@ -34,9 +32,9 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: TextButton(
-        onPressed: () {
+        onPressed: () async {
           final CharacterService service = GetIt.I.get();
-          service.getCharacters();
+          final response = await service.getCharacters();
         },
         child: const Text('Click Here'),
       ),
