@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:flutter_rick_and_morty/injection.dart';
 import 'package:dio/dio.dart';
+import 'package:get_it/get_it.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:flutter_rick_and_morty/character/data/service/character_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  configureDependencies();
   runApp(const MyApp());
 }
 
@@ -32,13 +35,7 @@ class MyHomePage extends StatelessWidget {
     return Center(
       child: TextButton(
         onPressed: () {
-          final CharacterService service = CharacterServiceImpl(
-            Dio(
-              BaseOptions(
-                baseUrl: 'https://rickandmortyapi.com/api/',
-              ),
-            )..interceptors.add(PrettyDioLogger()),
-          );
+          final CharacterService service = GetIt.I.get();
           service.getCharacters();
         },
         child: const Text('Click Here'),
