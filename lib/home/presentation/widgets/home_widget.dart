@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rick_and_morty/home/presentation/navigation/navigation_cubit.dart';
 
+import '../../../character/presentation/page/character_page.dart';
+
 class HomeWidget extends StatelessWidget {
   HomeWidget({super.key});
 
   final _pages = {
-    const Center(
-      child: Text('Characters Page'),
-    ): const BottomNavigationBarItem(
+    const CharacterPage(): const BottomNavigationBarItem(
       icon: Icon(Icons.person),
       label: 'Characters',
     ),

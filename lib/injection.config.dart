@@ -6,9 +6,15 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i3;
+import 'package:flutter_rick_and_morty/character/data/character_repository.dart'
+    as _i5;
 import 'package:flutter_rick_and_morty/character/data/service/character_service.dart'
     as _i4;
-import 'package:flutter_rick_and_morty/network/network_module.dart' as _i5;
+import 'package:flutter_rick_and_morty/character/domain/character_interactor.dart'
+    as _i6;
+import 'package:flutter_rick_and_morty/character/presentation/bloc/character_bloc.dart'
+    as _i7;
+import 'package:flutter_rick_and_morty/network/network_module.dart' as _i8;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
@@ -40,7 +46,13 @@ _i1.GetIt init(
   ));
   gh.factory<_i4.CharacterService>(
       () => _i4.CharacterServiceImpl(gh<_i3.Dio>()));
+  gh.factory<_i5.CharacterRepository>(
+      () => _i5.CharacterRepositoryImpl(gh<_i4.CharacterService>()));
+  gh.factory<_i6.CharacterInteractor>(
+      () => _i6.CharacterInteractorImpl(gh<_i5.CharacterRepository>()));
+  gh.factory<_i7.CharacterBloc>(
+      () => _i7.CharacterBloc(gh<_i6.CharacterInteractor>()));
   return getIt;
 }
 
-class _$NetworkModule extends _i5.NetworkModule {}
+class _$NetworkModule extends _i8.NetworkModule {}
