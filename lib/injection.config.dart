@@ -7,16 +7,22 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i3;
 import 'package:flutter_rick_and_morty/character/data/character_repository.dart'
-    as _i8;
-import 'package:flutter_rick_and_morty/character/data/service/character_service.dart'
-    as _i7;
-import 'package:flutter_rick_and_morty/character/domain/character_interactor.dart'
-    as _i9;
-import 'package:flutter_rick_and_morty/character/presentation/bloc/character_bloc.dart'
     as _i10;
-import 'package:flutter_rick_and_morty/network/network_module.dart' as _i12;
-import 'package:flutter_rick_and_morty/preferences/preferences_module.dart'
+import 'package:flutter_rick_and_morty/character/data/service/character_service.dart'
+    as _i8;
+import 'package:flutter_rick_and_morty/character/domain/character_interactor.dart'
+    as _i12;
+import 'package:flutter_rick_and_morty/character/presentation/bloc/character_bloc.dart'
+    as _i13;
+import 'package:flutter_rick_and_morty/details/data/details_repository.dart'
+    as _i9;
+import 'package:flutter_rick_and_morty/details/data/service/character_details_service.dart'
+    as _i7;
+import 'package:flutter_rick_and_morty/details/presentation/bloc/character_details_bloc.dart'
     as _i11;
+import 'package:flutter_rick_and_morty/network/network_module.dart' as _i15;
+import 'package:flutter_rick_and_morty/preferences/preferences_module.dart'
+    as _i14;
 import 'package:flutter_rick_and_morty/shared/theme/data/app_theme_repository.dart'
     as _i5;
 import 'package:flutter_rick_and_morty/shared/theme/data/cubit/theme_cubit.dart'
@@ -60,17 +66,23 @@ Future<_i1.GetIt> init(
   ));
   gh.factory<_i6.ThemeCubit>(
       () => _i6.ThemeCubit(gh<_i5.AppThemeRepository>()));
-  gh.factory<_i7.CharacterService>(
-      () => _i7.CharacterServiceImpl(gh<_i3.Dio>()));
-  gh.factory<_i8.CharacterRepository>(
-      () => _i8.CharacterRepositoryImpl(gh<_i7.CharacterService>()));
-  gh.factory<_i9.CharacterInteractor>(
-      () => _i9.CharacterInteractorImpl(gh<_i8.CharacterRepository>()));
-  gh.factory<_i10.CharacterBloc>(
-      () => _i10.CharacterBloc(gh<_i9.CharacterInteractor>()));
+  gh.factory<_i7.CharacterDetailsService>(
+      () => _i7.CharacterDetailsServiceImpl(gh<_i3.Dio>()));
+  gh.factory<_i8.CharacterService>(
+      () => _i8.CharacterServiceImpl(gh<_i3.Dio>()));
+  gh.factory<_i9.CharacterDetailsRepository>(() =>
+      _i9.CharacterDetailsRepositoryImpl(gh<_i7.CharacterDetailsService>()));
+  gh.factory<_i10.CharacterRepository>(
+      () => _i10.CharacterRepositoryImpl(gh<_i8.CharacterService>()));
+  gh.factory<_i11.CharacterDetailsBloc>(
+      () => _i11.CharacterDetailsBloc(gh<_i9.CharacterDetailsRepository>()));
+  gh.factory<_i12.CharacterInteractor>(
+      () => _i12.CharacterInteractorImpl(gh<_i10.CharacterRepository>()));
+  gh.factory<_i13.CharacterBloc>(
+      () => _i13.CharacterBloc(gh<_i12.CharacterInteractor>()));
   return getIt;
 }
 
-class _$PreferencesModule extends _i11.PreferencesModule {}
+class _$PreferencesModule extends _i14.PreferencesModule {}
 
-class _$NetworkModule extends _i12.NetworkModule {}
+class _$NetworkModule extends _i15.NetworkModule {}
