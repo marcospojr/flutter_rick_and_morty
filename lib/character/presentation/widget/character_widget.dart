@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rick_and_morty/character/presentation/bloc/character_bloc.dart';
 import 'package:flutter_rick_and_morty/shared/widgets/default_try_again_widget.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../shared/widgets/default_loading_widget.dart';
 import 'character_card_widget.dart';
@@ -56,7 +57,14 @@ class _CharacterWidgetState extends State<CharacterWidget> {
                   if (index < state.characters.length) {
                     return CharacterCardWidget(
                       response: state.characters[index],
-                      onTap: () {},
+                      onTap: () {
+                        context.goNamed(
+                          'details',
+                          params: {
+                            'id': state.characters[index].id.toString(),
+                          },
+                        );
+                      },
                     );
                   } else if (state.result == ResultState.error) {
                     return DefaultTryAgainWidget(
