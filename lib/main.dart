@@ -7,6 +7,8 @@ import 'package:flutter_rick_and_morty/shared/theme/application_theme.dart';
 import 'package:flutter_rick_and_morty/shared/theme/data/cubit/theme_cubit.dart';
 import 'package:get_it/get_it.dart';
 
+import 'details/presentation/page/details_page.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
@@ -41,6 +43,10 @@ class _App extends StatelessWidget {
       builder: (_, state) => MaterialApp(
         title: 'Flutter Demo',
         theme: ApplicationTheme.byName(state)?.themeData,
+        initialRoute: '/',
+        routes: {
+          '/details': (context) => const DetailsPage(),
+        },
         home: const HomePage(),
       ),
     );
